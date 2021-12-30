@@ -1,0 +1,26 @@
+1. MATCH (m:Movie) RETURN m
+
+2. MATCH (m:Movie {released:2003}) RETURN m
+   It returns 3 movies. Just click "Table" button on the left to see the results in a table.
+
+3. MATCH (m:Movie {released:1999}) RETURN m.title, m.released, m.tagline
+
+4. CALL db.schema.visualization
+
+5. MATCH (p:Person) -[:WROTE]-> (m:Movie) WHERE m.title = "Speed Racer" RETURN p.name
+
+6. MATCH (p:Person) --> (m:Movie) WHERE m.title =~ "The Matrix.*" RETURN DISTINCT p.name
+
+7. MATCH (p:Person) -[r]-> (m:Movie) WHERE m.title =~ "The Matrix.*" RETURN p, r, m
+
+8. MATCH (p:Person)-[r:ACTED_IN]->(m:Movie) WHERE p.name = "Helen Hunt" RETURN m.title, r.roles
+
+9. MATCH (p:Person) WHERE p.born>=1970 AND p.born<= 1979 RETURN p
+
+10. MATCH (p:Person)-[r]->(m:Movie) WHERE EXISTS(r.rating) RETURN p.name, m.title, r.rating
+
+11. MATCH (p:Person) WHERE p.name =~ ".*man" RETURN p.name
+
+12. MATCH (a:Person)-[:PRODUCED]->(m:Movie) WHERE NOT ((a)-[:DIRECTED]->(:Movie)) RETURN a.name, COUNT(m)
+
+13. MATCH (p:Person {name:"Jack Nicholson"})-[r *1..2]-(p_or_m) RETURN DISTINCT p, r, p_or_m
